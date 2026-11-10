@@ -1,0 +1,35 @@
+/* ---------- destination placeholder pages ---------- */
+.page { min-height: 100dvh; background: radial-gradient(ellipse at top, #3a2312, #1c110a 75%); padding: 0 0 48px; }
+.place-hero { height: min(42vh, 380px); background-repeat: no-repeat; border-bottom: 6px solid var(--wood); box-shadow: inset 0 -60px 60px -30px rgba(28,17,10,.9); }
+.parchment {
+  position: relative; max-width: 760px; margin: -70px auto 0; padding: clamp(22px, 4vw, 44px);
+  color: var(--ink); background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.35), transparent 40%),
+    linear-gradient(#f6e8c8, #ead4a4);
+  border: 3px solid var(--wood); border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 0 40px rgba(150,100,40,.25);
+  width: calc(100% - 28px);
+}
+.parchment .crumbs { color: var(--ink); margin-bottom: 8px; }
+.parchment .crumbs a { color: #7a4a14; }
+.parchment h1 { margin: .1em 0 .3em; font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.1; }
+.eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; color: #7a4a14; }
+.lede { font-size: 1.15rem; line-height: 1.55; }
+.status { background: rgba(122,74,20,.12); border-left: 4px solid var(--wood); padding: .8em 1em; border-radius: 6px; line-height: 1.5; }
+.ribbon { display: inline-block; background: var(--wood); color: #fbeccb; padding: .1em .6em; border-radius: 4px; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; margin-right: .5em; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+/* ---------- portfolio ---------- */
+.portfolio-screen { background: #14120f; min-height: 100dvh; }
+.pf-bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px; justify-content: space-between; padding: 10px 14px; background: rgba(20,18,15,.92); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(217,164,65,.3); }
+.pf-nav { position: sticky; top: 62px; z-index: 19; display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px; background: rgba(20,18,15,.92); scrollbar-width: thin; }
+.pf-chip { flex: 0 0 auto; cursor: pointer; font: 600 .85rem/1 var(--font-serif); padding: .65em 1em; min-height: 40px; border-radius: 999px; background: transparent; color: var(--parchment); border: 1px solid rgba(217,164,65,.5); transition: background .2s ease; }
+.pf-chip:hover { background: rgba(217,164,65,.18); }
+.pf-chip.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.pf-pages { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 12px 0 0; }
+.pf-section { width: 100%; display: flex; flex-direction: column; align-items: center; scroll-margin-top: 120px; }
+.pf-page { width: min(94vw, 860px); height: auto; aspect-ratio: 1 / 1; background: #222; }
+.pf-foot { display: flex; justify-content: center; padding: 28px 14px 44px; }
+@media (max-width: 700px) {
+  .pf-bar .crumbs { display: none; }
+  .pf-page { width: 100vw; }
+}

@@ -1,0 +1,25 @@
+.atlas-screen { position: fixed; inset: 0; background: #0f0905; overflow: hidden; }
+.atlas-bar { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; gap: 14px; align-items: center; padding: 12px 14px; pointer-events: none; }
+.atlas-bar > * { pointer-events: auto; }
+.atlas-bar .crumbs { background: rgba(28,17,10,.82); padding: .5em .9em; border-radius: 10px; border: 1px solid rgba(217,164,65,.4); }
+
+.atlas-viewport { position: absolute; inset: 0; overflow: hidden; touch-action: none; cursor: grab; outline: none; }
+.atlas-viewport.grabbing { cursor: grabbing; }
+.atlas-viewport:focus-visible { box-shadow: inset 0 0 0 3px var(--amber); }
+.atlas-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; --inv: 1; }
+.atlas-world img { width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+
+.map-hotspot { border-radius: 22px; }
+.map-hotspot .hs-label { font-size: 1.05rem; transform: translate(-50%, 8px) scale(var(--inv)); transform-origin: 50% 0; }
+.map-hotspot:hover .hs-label, .map-hotspot:focus-visible .hs-label { transform: translate(-50%, 0) scale(var(--inv)); }
+.map-hotspot { box-shadow: none; }
+.map-hotspot:hover, .map-hotspot:focus-visible { box-shadow: 0 0 0 calc(2px * var(--inv)) rgba(255,220,140,.7), 0 0 calc(28px * var(--inv)) calc(6px * var(--inv)) rgba(255,196,90,.5); }
+
+.atlas-controls { position: absolute; z-index: 10; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+.atlas-controls button {
+  width: 46px; height: 46px; border-radius: 12px; font: 700 1.4rem/1 var(--font-serif); cursor: pointer;
+  background: rgba(28,17,10,.88); color: var(--parchment); border: 1px solid rgba(217,164,65,.65);
+  transition: transform .15s ease, background .15s ease;
+}
+.atlas-controls button:hover { background: rgba(90,52,24,.95); transform: translateY(-1px); }
+@media (max-width: 600px) { .atlas-bar .crumbs { display: none; } }

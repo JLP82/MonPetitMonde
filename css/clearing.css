@@ -1,0 +1,45 @@
+/* The Hidden Clearing — the painting is the stage; the painted cards are buttons. */
+.hc .stage { aspect-ratio: 1672 / 941; width: min(100vw, calc(100dvh * 1.7768)); background-size: 100% 100%; }
+.hc-h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.hc-intro, .hc-mhero, .hc-hint { display: none; }
+.hc-card { position: absolute; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; border-radius: 12px; z-index: 5;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; }
+.hc-card .art { position: absolute; inset: 0; display: block; border-radius: 12px; background-repeat: no-repeat; }
+.hc-card:hover, .hc-card:focus-visible { transform: translateY(-4px) scale(1.012); filter: brightness(1.06); box-shadow: 0 0 0 2px rgba(255, 222, 150, .7), 0 0 2.2cqw .8cqw rgba(255, 190, 90, .5); }
+.hc-card:focus-visible { outline: 3px solid #ffd98a; outline-offset: 3px; }
+.hc-card:active { transform: translateY(-1px); }
+.hc-flies { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.hc-flies i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 8px 3px rgba(255, 220, 130, .75); opacity: 0; animation: hcfly var(--t) ease-in-out var(--d) infinite; }
+@keyframes hcfly { 0%, 100% { opacity: 0; transform: translate(0, 0); } 30% { opacity: .9; } 50% { opacity: .5; transform: translate(14px, -18px); } 80% { opacity: .85; transform: translate(-10px, -8px); } }
+
+/* information panel (appended to <body>) */
+.hc-pop { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; background: rgba(14, 6, 18, .62); animation: hcfade .22s ease; }
+.hc-pop.out { opacity: 0; transition: opacity .18s ease; }
+@keyframes hcfade { from { opacity: 0; } }
+.hc-panel { position: relative; width: min(680px, 94vw); display: grid; grid-template-columns: minmax(110px, 30%) 1fr; gap: 22px; align-items: center; padding: 34px 34px 30px 26px; color: #3a2412;
+  border-radius: 6px 14px 8px 12px; border: 3px solid #7a5128;
+  background: radial-gradient(120% 70% at 15% 0, rgba(255, 252, 230, .85), transparent 60%), radial-gradient(90% 60% at 95% 100%, rgba(170, 120, 60, .25), transparent 70%), linear-gradient(#f6e6bf, #ead19a);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .65), inset 0 0 50px rgba(140, 90, 40, .3); animation: hcpop .38s cubic-bezier(.2, 1.25, .4, 1); font-family: var(--font-serif); }
+@keyframes hcpop { from { opacity: 0; transform: translateY(18px) scale(.9) rotate(-1deg); } }
+.hc-ill { width: 100%; height: auto; display: block; mix-blend-mode: multiply; filter: contrast(1.05); user-select: none; }
+.hc-txt h2 { margin: 0; font: italic 600 clamp(1.7rem, 4.4vw, 2.5rem)/1.1 var(--font-serif); color: #3a1e10; }
+.hc-rule { display: flex; align-items: center; gap: .6em; margin: .55em 0 .7em; color: #a5642b; }
+.hc-rule i { flex: 1; height: 1px; background: linear-gradient(90deg, #8a6a3a, transparent); }
+.hc-txt p { margin: 0; font-size: clamp(1rem, 2.3vw, 1.15rem); line-height: 1.65; text-wrap: pretty; }
+.hc-x { position: absolute; right: 8px; top: 6px; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font: 400 1.9rem/1 var(--font-serif); color: #5a3418; background: rgba(255, 245, 215, .6); border: 1.5px solid #8a6a3a; transition: background .15s, transform .15s; }
+.hc-x:hover { background: #fff2cc; transform: rotate(8deg); } .hc-x:focus-visible { outline: 3px solid #b9812f; outline-offset: 2px; }
+@media (max-width: 560px) { .hc-panel { grid-template-columns: 1fr; padding: 28px 20px 24px; gap: 8px; } .hc-ill { width: 42%; margin: 0 auto; } .hc-txt { text-align: center; } .hc-rule { justify-content: center; } .hc-rule i { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hc-flies { display: none; } .hc-panel, .hc-pop { animation: none; } .hc-card { transition: none; } }
+
+/* phones & tablets: sign on top, six cards stacked */
+@media (max-width: 860px) {
+  .hc .stage { display: flex; flex-direction: column; gap: 18px; align-items: center; width: 100%; aspect-ratio: auto; padding: 56px 14px 40px; box-sizing: border-box; max-width: 640px; margin: 0 auto; }
+  .hc-mhero { display: block; width: 100%; background-repeat: no-repeat; border-radius: 12px; box-shadow: 0 10px 26px rgba(0, 0, 0, .55); }
+  .hc-flies { display: none; }
+  .hc-cards { display: contents; }
+  .hc-card { position: relative; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; }
+  .hc-card .art { position: relative; inset: auto; width: 100%; box-shadow: 0 8px 20px rgba(0, 0, 0, .5); }
+  .hc-card:hover { transform: none; }
+  .hc-hint { display: block; margin: 0; color: #f4dca6; font-style: italic; text-align: center; order: -1; }
+  .hc-mhero { order: -2; }
+}

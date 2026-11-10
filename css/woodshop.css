@@ -1,0 +1,74 @@
+/* ============================================================
+   The Woodworker's Workshop: entrance card + Wood Tetris.
+   Desktop: the painting is the stage (positions are % of the painting). Phones: the entrance crops to the card; the game stacks.
+   ============================================================ */
+.ws, .wg { min-height: 100dvh; background: #120a05; display: grid; place-items: center; --ink: #3a1f0e; }
+
+/* ---- entrance ---- */
+.ws-view { position: relative; width: min(100vw, calc(100dvh * 1.7768)); aspect-ratio: 1672 / 941; overflow: hidden; }
+.ws-inner { position: relative; width: 100%; aspect-ratio: 1672 / 941; background-size: 100% 100%; background-repeat: no-repeat; }
+.hs { position: absolute; display: block; text-decoration: none; border-radius: 1.6cqw; }
+.hs span { position: absolute; inset: 0; border-radius: inherit; transition: box-shadow .25s ease, background .25s ease, transform .25s ease; }
+.hs-start span { border-radius: 1.2vw; } .hs-close span { border-radius: 50%; }
+.hs:hover span, .hs:focus-visible span { background: rgba(255, 226, 150, .22); box-shadow: 0 0 0 .22vw rgba(255, 236, 180, .95), 0 0 2.2vw rgba(255, 205, 100, .75); }
+.hs:focus-visible { outline: none; } .hs:active span { transform: scale(.985); }
+@media (prefers-reduced-motion: no-preference) { .hs-start span { animation: wsnudge 3.2s ease-in-out 1.2s infinite; } }
+@keyframes wsnudge { 0%, 70%, 100% { box-shadow: 0 0 0 0 rgba(255, 220, 140, 0); } 85% { box-shadow: 0 0 1.8vw .3vw rgba(255, 215, 120, .55); } }
+
+/* ---- game (desktop) ---- */
+.wgstage { position: relative; width: min(100vw, calc(100dvh * 1.5)); aspect-ratio: 3 / 2; container-type: inline-size; background-size: 100% 100%; background-repeat: no-repeat; overflow: hidden; color: var(--ink); font-family: var(--font-serif); }
+.wgstage > * { position: absolute; }
+.wgstage > .scene-back { position: fixed; }
+.hud { position: static; display: contents; }
+.plate { position: absolute; display: grid; place-items: center; }
+.plate .lbl { display: none; }
+.plate .n { font: italic 600 clamp(18px, 2.9cqw, 46px)/1 var(--font-serif); color: #3a1f0e; text-shadow: 0 1px 0 rgba(255, 220, 160, .35); font-variant-numeric: tabular-nums; margin-top: 1.3cqw; }
+.board { overflow: hidden; border-radius: .3cqw; }
+.board canvas { display: block; width: 100%; height: 100%; }
+.ovl { position: absolute; inset: 0; display: none; place-items: center; background: rgba(28, 14, 6, .62); backdrop-filter: blur(2px); }
+.ovl.on { display: grid; }
+.ovl-card { text-align: center; color: #f6e8c8; padding: 1.4cqw; max-width: 90%; display: flex; flex-direction: column; gap: .9cqw; align-items: center; }
+.ovl-card h2 { margin: 0; font: italic 500 clamp(22px, 3.2cqw, 52px)/1.05 var(--font-serif); text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+.ovl-card p { margin: 0; font-size: clamp(12px, 1.25cqw, 20px); line-height: 1.4; } .ovl-card b { color: #ffd98a; } .best { opacity: .85; }
+.nextbox { display: block; } .nextbox .nlbl { display: none; } .nextbox canvas { width: 100%; height: 100%; display: block; }
+.wnote { box-sizing: border-box; padding: .8cqw 1.1cqw; display: flex; flex-direction: column; gap: .3cqw; border-radius: 1.1cqw / .9cqw; overflow: auto; scrollbar-width: thin;
+  font-size: clamp(10px, .95cqw, 16px); line-height: 1.32; color: #3a1f0e; border: .18cqw solid #b4864a;
+  background: radial-gradient(120% 70% at 12% 0%, rgba(255, 250, 225, .85), transparent 60%), linear-gradient(#f4e2b8, #e6cc96); box-shadow: 0 .4cqw 1.2cqw rgba(20, 8, 2, .55), inset 0 0 1.6cqw rgba(160, 110, 50, .28); }
+.wnote h2 { margin: 0; font: italic 600 1.25em/1.1 var(--font-serif); color: #5a2e12; border-bottom: .1cqw solid rgba(120, 80, 40, .4); padding-bottom: .15em; }
+.wnote p { margin: 0; } .wnote i { color: #7a4a20; font-size: .92em; }
+.wctl { display: flex; gap: 1.1cqw; align-items: center; justify-content: center; }
+.wbtn { all: unset; box-sizing: border-box; cursor: pointer; min-height: 32px; padding: .45em 1.6em; border-radius: .7cqw; text-align: center; font: italic 600 clamp(12px, 1.35cqw, 22px)/1.1 var(--font-serif); color: #fbecc8;
+  background: linear-gradient(#c58a4a, #8f5828); border: .17cqw solid #4b2a12; box-shadow: 0 .3cqw .7cqw rgba(15, 6, 2, .55), inset 0 .1cqw 0 rgba(255, 225, 170, .5); text-shadow: 0 1px 1px rgba(40, 18, 6, .7); transition: filter .2s ease, transform .2s ease; }
+.wbtn:hover { filter: brightness(1.1); transform: translateY(-1px); } .wbtn:focus-visible { outline: 3px solid #ffd98a; outline-offset: 2px; } .wbtn.big { font-size: clamp(14px, 1.7cqw, 28px); padding: .5em 2.2em; }
+.whint { margin: 0; text-align: center; color: #f0dcb0; font-size: clamp(10px, .98cqw, 16px); text-shadow: 0 1px 3px rgba(0, 0, 0, .8); display: block; line-height: 1.2; padding-top: .5cqw; } .whint b { color: #ffd98a; font-weight: 700; }
+.pad { display: none; }
+
+/* ---------------- phones & small tablets ---------------- */
+@media (max-width: 860px) {
+  /* entrance: crop the painting to the welcome card */
+  .ws-view { width: 100vw; aspect-ratio: 1090 / 800; }
+  .ws-inner { width: 153.4%; margin: -3.2% 0 0 -26.1%; }
+  .hs-start span { border-radius: 2vw; }
+
+  /* game: stacked layout on a darkened copy of the painting */
+  .wg { align-items: start; }
+  .wgstage { width: 100%; max-width: 520px; aspect-ratio: auto; container-type: normal; overflow: visible; margin: 0 auto; padding: 56px 12px 26px; display: grid; gap: 12px; grid-template-columns: 1fr 96px; grid-template-areas: "hud hud" "board side" "note note" "ctl ctl" "pad pad" "hint hint";
+    background: none; position: relative; }
+  .wg { background: linear-gradient(rgba(22, 11, 5, .93), rgba(22, 11, 5, .96)), url(../assets/wood/game.webp) center / cover fixed, #120a05; }
+  .wgstage > * { position: static; }
+  .wgstage > .scene-back { position: fixed; }
+  .hud { display: grid; grid-area: hud; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .plate { position: static; left: auto !important; top: auto !important; width: auto !important; height: auto !important; padding: 8px 4px; border-radius: 10px; background: linear-gradient(#c58a4a, #96602d); border: 2px solid #4b2a12; box-shadow: 0 3px 8px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,225,170,.5); }
+  .plate .lbl { display: block; font: italic 600 .95rem var(--font-serif); color: #3a1f0e; } .plate .n { margin: 0; font-size: 1.6rem; }
+  .board { grid-area: board; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; aspect-ratio: 457 / 704; border: 5px solid #8a5a2e; border-radius: 8px; box-shadow: 0 6px 16px rgba(0,0,0,.6); }
+  .nextbox { grid-area: side; left: auto !important; top: auto !important; width: 100% !important; height: auto !important; align-self: start; padding: 8px 6px; border-radius: 10px; border: 2px solid #b4864a; background: linear-gradient(#f4e2b8, #e6cc96); }
+  .nextbox .nlbl { display: block; text-align: center; font: italic 600 1.2rem var(--font-serif); margin-bottom: 4px; } .nextbox canvas { aspect-ratio: 180 / 326; height: auto; }
+  .wnote { grid-area: note; left: auto !important; top: auto !important; width: auto !important; height: auto !important; font-size: .98rem; padding: 10px 14px; border-radius: 12px; }
+  .wctl { grid-area: ctl; left: auto !important; top: auto !important; width: auto !important; height: auto !important; gap: 10px; flex-wrap: wrap; } .wbtn { min-height: 44px; font-size: 1.05rem; border-radius: 10px; border-width: 2px; padding: .5em 1.4em; } .wbtn.big { font-size: 1.2rem; }
+  .whint { display: none; }
+  .pad { display: grid; grid-area: pad; grid-template-columns: repeat(5, 1fr); gap: 8px; touch-action: none; user-select: none; }
+  .pad button { all: unset; box-sizing: border-box; min-height: 56px; display: grid; place-items: center; font-size: 1.5rem; color: #fbecc8; border-radius: 12px; background: linear-gradient(#a8703a, #7a4a22); border: 2px solid #4b2a12; box-shadow: 0 3px 6px rgba(0,0,0,.5); touch-action: none; }
+  .pad button:active { filter: brightness(1.25); transform: translateY(1px); }
+  .ovl-card { padding: 12px; gap: 10px; } .ovl-card h2 { font-size: 1.8rem; } .ovl-card p { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .hs span, .wbtn { transition: none; } }

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>mon Petit monde!</title>
+  <meta name="description" content="An illustrated, explorable world: bookshelf, fantasy atlas and the places that tell my story.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%235a3418%27/%3E%3Cpath d=%27M16 6l3 8 8 2-8 2-3 8-3-8-8-2 8-2z%27 fill=%27%23e8a94b%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/bookshelf.css">
+  <link rel="stylesheet" href="css/atlas.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/scenes.css">
+  <link rel="stylesheet" href="css/heartlands.css">
+  <link rel="stylesheet" href="css/studio.css">
+  <link rel="stylesheet" href="css/woodshop.css">
+  <link rel="stylesheet" href="css/crossroads.css">
+  <link rel="stylesheet" href="css/keep.css">
+  <link rel="stylesheet" href="css/puzzle.css">
+  <link rel="stylesheet" href="css/clearing.css">
+  <link rel="stylesheet" href="css/library.css">
+  <link rel="stylesheet" href="css/theatre.css">
+  <link rel="stylesheet" href="css/poststop.css">
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to content</a>
+  <!-- Every "screen" is rendered into #app by the router (js/router.js). -->
+  <main id="app" tabindex="-1" aria-live="polite"></main>
+  <!-- Full-screen overlay used for page transitions (js/transitions.js). -->
+  <div id="transition" aria-hidden="true"></div>
+
+  <!-- Classic scripts (no build step, works from any static host or by double-clicking). Order matters. -->
+  <script src="js/data.js"></script>
+  <script src="js/transitions.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/bookshelf.js"></script>
+  <script src="js/atlas.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/scene.js"></script>
+  <script src="js/meditation.js"></script>
+  <script src="js/lighthouse.js"></script>
+  <script src="js/tidal-observatory.js"></script>
+  <script src="js/heartlands.js"></script>
+  <script src="js/portfolio.js"></script>
+  <!-- Destinations (one file each; each registers itself with MPM.registerExperience) -->
+  <script src="js/exp-studio.js"></script>
+  <script src="js/tetris-engine.js"></script>
+  <script src="js/exp-woodshop.js"></script>
+  <script src="js/exp-crossroads.js"></script>
+  <script src="js/keep-engine.js"></script>
+  <script src="js/exp-keep.js"></script>
+  <script src="js/exp-puzzle.js"></script>
+  <script src="js/exp-clearing.js"></script>
+  <script src="js/exp-library.js"></script>
+  <script src="js/exp-theatre.js"></script>
+  <script src="js/exp-poststop.js"></script>
+  <script src="js/main.js"></script>
+  <!-- Boot check: if the css/js/assets folders are not next to this file (e.g. opened from inside a zip), say so instead of showing a blank page. -->
+  <noscript><p style="font:18px/1.5 Georgia,serif;max-width:34em;margin:3em auto;padding:0 1em">mon Petit monde! needs JavaScript turned on.</p></noscript>
+  <script>
+    window.addEventListener("load", function () {
+      if (window.MPM && document.getElementById("app").children.length) return;
+      var app = document.getElementById("app");
+      app.innerHTML = '<div style="font:18px/1.6 Georgia,serif;max-width:36em;margin:4em auto;padding:1.5em 1.8em;background:#f6e8c8;color:#3a2412;border:3px solid #5a3418;border-radius:14px">' +
+        '<h1 style="margin:0 0 .4em;font-size:1.5em">The site files did not load</h1>' +
+        '<p>This page could not find its <code>css</code>, <code>js</code> and <code>assets</code> folders next to <code>index.html</code>' +
+        (window.MPM ? ' (the scripts ran but nothing rendered; open the browser console with F12 for details).' : '.') + '</p>' +
+        '<p>This usually happens when <code>index.html</code> is opened from inside the .zip. Fix: right-click the zip, choose <b>Extract All…</b>, then open <code>index.html</code> from the extracted folder, or double-click <code>start.bat</code> (Windows) / run <code>./start.sh</code> (Mac/Linux).</p></div>';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+/* ============================================================
+   The Puzzle Chamber — "The Animal Parade".
+   Desktop: the painted chamber is the stage; panels, the puzzle table and the collection strip are live on top of it.
+   Phones (<=860px): everything stacks — table, controls, reveal card, story, collection.
+   ============================================================ */
+.pz { --ink: #3a2412; --gold: #ffd98a; }
+.pz-head { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.pz svg { fill: none; stroke: currentColor; }
+
+/* ---------------- parchment panels ---------------- */
+.pz-left, .pz-right { color: var(--ink); text-align: center; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #b98a4c transparent; }
+.pz-left { padding: 1.2cqw .6cqw 1cqw; font: 400 clamp(11px, 1.3cqw, 19px)/1.5 var(--font-serif); animation: pzfade .5s ease; }
+@keyframes pzfade { from { opacity: 0; } }
+.pz-left h2 { margin: 0; font: italic 500 clamp(18px, 2.7cqw, 44px)/1.1 var(--font-serif); }
+.pz-left[data-mode=parade] { font-size: clamp(10px, 1.12cqw, 17px); } .pz-left[data-mode=parade] h2 { font-size: clamp(15px, 1.8cqw, 30px); }
+.pz-orn { display: flex; align-items: center; gap: .6em; margin: .5em 0 .7em; color: #a9741f; }
+.pz-orn i { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #8a6a3a 40%, #8a6a3a 60%, transparent); }
+.pz-orn svg { width: 1.9em; height: 1.9em; stroke-width: 1.7; fill: rgba(224, 168, 70, .55); }
+.pz-left p { margin: 0 0 .7em; font-style: italic; text-wrap: pretty; }
+.pz-left ul { margin: .9em 0 0; padding: 0; list-style: none; text-align: left; font-size: .9em; }
+.pz-left li { position: relative; padding: .25em 0 .25em 1.3em; }
+.pz-left li::before { content: "\2766"; position: absolute; left: 0; top: .22em; color: #a5642b; }
+
+.pz-right { padding: 1.2cqw 1cqw; display: flex; flex-direction: column; }
+.pz-right .rp { margin: auto 0; display: flex; flex-direction: column; align-items: center; gap: .45em; font: 400 clamp(11px, 1.25cqw, 18px)/1.4 var(--font-serif); }
+.pz-right .orb { position: relative; width: 7.6cqw; height: 7.6cqw; min-width: 64px; min-height: 64px; margin-bottom: .4em; }
+.pz-right .orb img { width: 100%; height: 100%; display: block; border-radius: 50%; filter: grayscale(1) brightness(.38) contrast(1.1) sepia(.35); box-shadow: 0 4px 12px rgba(60, 30, 10, .4); }
+.pz-right .orb b { position: absolute; inset: 0; display: grid; place-items: center; font: italic 700 3.2cqw/1 var(--font-serif); color: rgba(255, 226, 170, .92); text-shadow: 0 2px 6px rgba(0, 0, 0, .6); }
+.pz-right .w { margin: 0; font: italic 600 1.35em/1.3 var(--font-serif); text-wrap: balance; }
+.pz-right .s { margin: 0; font-size: .95em; color: #6a4a2a; font-style: italic; }
+.pz-right .kick { margin: 0; font: italic 700 1.05em/1.2 var(--font-serif); color: #8a3a12; text-wrap: balance; }
+.pz-right .pic { width: 6.6cqw; height: 6.6cqw; min-width: 58px; min-height: 58px; border-radius: 10px; object-fit: cover; border: 3px solid #7a5128; box-shadow: 0 4px 10px rgba(60, 30, 10, .45); }
+.pz-right h3 { margin: .1em 0 0; font: italic 500 clamp(20px, 2.6cqw, 40px)/1.05 var(--font-serif); }
+.pz-right .ttl { margin: 0; font: italic 400 1.18em/1.2 var(--font-serif); color: #5a3a1a; display: flex; gap: .6em; align-items: center; }
+.pz-right .ttl::before, .pz-right .ttl::after { content: ""; width: 1.6em; height: 1px; background: #8a6a3a; }
+.pz-right .tr { list-style: none; margin: .25em 0; padding: 0; display: grid; gap: .3em; text-align: left; }
+.pz-right .tr li { display: flex; gap: .6em; align-items: center; font-size: 1.1em; }
+.pz-right .tr svg { width: 1.2em; height: 1.2em; flex: none; fill: #b0682c; stroke: #7a4418; stroke-width: 1; }
+.pz-right .bl { margin: .1em 0 .2em; font-style: italic; text-wrap: balance; color: #4a2e18; }
+.pz-right .all { margin: 0; font: italic 700 .95em/1.2 var(--font-serif); color: #8a3a12; }
+.pz-right .rb { display: grid; gap: .5em; width: 100%; margin-top: .3em; }
+.pz-right.revealed .rp { animation: pzmeet .9s cubic-bezier(.2, 1.2, .4, 1); }
+@keyframes pzmeet { 0% { transform: scale(.9); opacity: 0; filter: brightness(1.6); } 60% { opacity: 1; } 100% { transform: none; filter: none; } }
+
+.pz-go, .pz-alt { font: 700 1em/1 var(--font-serif); padding: .8em 1em; border-radius: 10px; cursor: pointer; border: 2px solid #2c190b; color: #f8e7bf;
+  background: linear-gradient(#a06a38, #6b4020 55%, #5a3418); box-shadow: inset 0 1px 0 rgba(255, 220, 160, .4), 0 3px 8px rgba(0, 0, 0, .4); transition: transform .15s ease, filter .15s ease; }
+.pz-alt { background: transparent; color: #5a3418; border-color: #8a6a3a; box-shadow: none; font-weight: 600; padding: .55em 1em; }
+.pz-go:hover, .pz-alt:hover { transform: translateY(-2px); filter: brightness(1.12); }
+.pz-alt:hover { background: rgba(255, 240, 200, .5); }
+.pz button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+/* ---------------- the puzzle table ---------------- */
+.pz-table { overflow: hidden; border-radius: 3px; user-select: none; -webkit-user-select: none; touch-action: none; -webkit-tap-highlight-color: transparent;
+  background: radial-gradient(120% 100% at 50% 40%, #5a3519 0%, #3a2010 70%, #2a160a 100%); box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .5), inset 0 0 28px rgba(0, 0, 0, .55);
+  font: 400 13px/1.2 var(--font-serif); color: #f4dfb0; }
+.pz-chips { position: absolute; left: 0; right: 0; top: 0; height: 44px; z-index: 40; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: linear-gradient(rgba(20, 9, 3, .55), rgba(20, 9, 3, 0)); }
+.pz-lv { display: flex; border-radius: 99px; overflow: hidden; border: 1.5px solid #8a6a3a; background: rgba(20, 9, 3, .45); }
+.pz-lv button { font: 600 12px/1 var(--font-serif); color: #f0d9a6; background: none; border: 0; padding: 7px 10px; cursor: pointer; white-space: nowrap; transition: background .15s; }
+.pz-lv button small { opacity: .7; font-size: 10px; }
+.pz-lv button:hover { background: rgba(255, 220, 150, .15); }
+.pz-lv button.on { background: linear-gradient(#e6b660, #b9812f); color: #2c190b; }
+.pz-prog { flex: 1; min-width: 0; text-align: center; font: italic 600 12px/1 var(--font-serif); color: #f4dfb0; position: relative; padding-bottom: 7px; white-space: nowrap; }
+.pz-prog::before, .pz-prog::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 0; height: 3px; border-radius: 3px; }
+.pz-prog::before { background: rgba(255, 230, 170, .18); }
+.pz-prog::after { background: linear-gradient(90deg, #e6b660, #ffd98a); right: auto; width: calc(76% * var(--p, 0)); transition: width .3s ease; }
+.pz-hint, .pz-big { font: 600 12px/1 var(--font-serif); color: #f0d9a6; background: rgba(20, 9, 3, .45); border: 1.5px solid #8a6a3a; border-radius: 99px; padding: 7px 11px; cursor: pointer; transition: background .15s; }
+.pz-big { padding: 5px 8px; display: grid; place-items: center; } .pz-big svg { width: 16px; height: 16px; stroke-width: 2.2; }
+.pz-hint:hover, .pz-big:hover { background: rgba(255, 220, 150, .2); }
+.pz-hint[aria-pressed="true"], .pz-big.on { background: linear-gradient(#e6b660, #b9812f); color: #2c190b; }
+.pz-table:not(.is-playing) .pz-hint { display: none; }
+
+.pz-board { position: absolute; overflow: hidden; border-radius: 3px; background: rgba(255, 235, 200, .05); box-shadow: 0 0 0 2px rgba(255, 225, 170, .25), 0 6px 22px rgba(0, 0, 0, .55); }
+.pz-ghost { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 1; transition: opacity .45s ease; pointer-events: none; user-select: none; }
+.pz-board.ghosted .pz-ghost { opacity: .12; } .pz-board.ghosted.hint .pz-ghost { opacity: .6; }
+
+.pz-pieces { position: absolute; inset: 0; pointer-events: none; }
+.pc { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 3; will-change: transform; }
+.pc svg { width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
+.pc .hit { fill: transparent; stroke: none; pointer-events: all; cursor: grab; }
+.pc .o1 { stroke: rgba(30, 14, 4, .6); stroke-width: 2.6; } .pc .o2 { stroke: rgba(255, 238, 200, .32); stroke-width: 1.2; transform: translate(-1.4px, -1.4px); }
+.pc.drag .hit { cursor: grabbing; } .pc.drag svg { filter: drop-shadow(0 10px 9px rgba(0, 0, 0, .55)); }
+.pc.locked .hit { pointer-events: none; } .pc.locked .o1 { stroke: rgba(30, 14, 4, .28); } .pc.locked .o2 { opacity: .5; }
+.pc.snap svg { animation: pzsnap .5s ease; }
+@keyframes pzsnap { 30% { filter: brightness(1.55) drop-shadow(0 0 8px rgba(255, 230, 150, .9)); } }
+.pz-table.is-done .pc .o1, .pz-table.is-done .pc .o2 { opacity: 0; transition: opacity .8s ease; }
+.pz-table.is-done .pz-board { box-shadow: 0 0 0 2px rgba(255, 225, 170, .55), 0 0 34px rgba(255, 200, 100, .45); transition: box-shadow .8s; }
+
+.pz-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 50; }
+.pz-fx .lf { position: absolute; top: -6%; width: 12px; height: 18px; border-radius: 0 100% 0 100%; opacity: 0; transform: scale(var(--s, 1)); animation: pzleaf var(--t, 4s) ease-in var(--d, 0s) forwards; }
+@keyframes pzleaf { 0% { top: -6%; opacity: 0; transform: translateX(0) rotate(0) scale(var(--s)); } 10% { opacity: 1; } 85% { opacity: 1; } 100% { top: 104%; opacity: 0; transform: translateX(var(--x)) rotate(var(--r)) scale(var(--s)); } }
+.pz-fx .sp { position: absolute; width: 16px; height: 16px; background: #fff3c0; opacity: 0; clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: pztwk 1.4s ease-in-out var(--d, 0s) 3; filter: drop-shadow(0 0 4px #ffd27a); }
+@keyframes pztwk { 0%, 100% { opacity: 0; transform: scale(.3) rotate(0); } 50% { opacity: 1; transform: scale(1.2) rotate(45deg); } }
+
+/* big table (the table is moved onto <body> while open) */
+.pz-table.big { position: fixed !important; inset: 0; left: 0; top: 0; width: auto !important; height: auto !important; aspect-ratio: auto !important; z-index: 120; border-radius: 0; }
+.pz-table.big .pz-chips { height: 52px; padding: 0 16px; gap: 12px; } .pz-table.big .pz-chips * { font-size: 14px; }
+
+/* ---------------- controls over the painted bar ---------------- */
+.pz-arrow { display: grid; place-items: center; padding: 0; border-radius: 50%; background: none; border: 0; cursor: pointer; color: transparent; transition: box-shadow .18s, background .18s, transform .18s; }
+.pz-arrow svg { width: 40%; height: 40%; stroke-width: 3; opacity: 0; }
+.pz-arrow:hover { background: rgba(255, 224, 160, .22); box-shadow: 0 0 1.6cqw rgba(255, 190, 90, .65); transform: scale(1.06); }
+.pz-start { display: grid; place-items: center; border-radius: 99px; background: none; border: 0; cursor: pointer; transition: background .18s, box-shadow .18s, transform .18s; }
+.pz-start span { font: italic 600 clamp(14px, 2.75cqw, 42px)/1 var(--font-serif); color: #3a2412; text-shadow: 0 1px 0 rgba(255, 236, 190, .6); }
+.pz-start:hover { background: rgba(255, 228, 165, .26); box-shadow: 0 0 1.8cqw rgba(255, 190, 90, .6); transform: translateY(-1px); }
+.pz-start:active { transform: translateY(1px); }
+.pz-dots { display: flex; justify-content: center; align-items: center; gap: 1.55cqw; }
+.pz-dots button { width: 1.05cqw; height: 1.05cqw; min-width: 10px; min-height: 10px; padding: 0; border-radius: 50%; cursor: pointer; border: 1.5px solid #ecd29d; background: rgba(40, 20, 8, .35); transition: transform .2s, background .2s, box-shadow .2s; position: relative; }
+.pz-dots button::before { content: ""; position: absolute; inset: -.7cqw; }
+.pz-dots button.on { background: #f1c15d; border-color: #fff0c4; }
+.pz-dots button.cur { transform: scale(1.4); box-shadow: 0 0 .9cqw rgba(255, 200, 90, .9); }
+.pz-dots button:hover { transform: scale(1.35); }
+
+/* ---------------- collection strip ---------------- */
+.pz-strip { position: absolute; }
+.pz-meds { position: absolute; left: 5.6%; width: 87.2%; top: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; }
+.pz-med { position: relative; flex: 0 0 11.6%; aspect-ratio: 1; padding: 0; border-radius: 50%; background: none; border: 0; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+.pz-med img { width: 100%; height: 100%; display: block; border-radius: 50%; box-shadow: 0 0 0 3px #a47a3c, 0 5px 12px rgba(60, 30, 10, .45); filter: grayscale(1) brightness(.4) contrast(1.15) sepia(.35); transition: filter .5s ease; pointer-events: none; }
+.pz-med .q { position: absolute; inset: 0; display: grid; place-items: center; font: italic 700 clamp(14px, 3cqw, 40px)/1 var(--font-serif); color: rgba(255, 226, 170, .92); text-shadow: 0 2px 6px rgba(0, 0, 0, .65); transition: opacity .4s; }
+.pz-med.got img { filter: none; } .pz-med.got .q { opacity: 0; }
+.pz-med:hover { transform: translateY(-3px); }
+.pz-med.cur { box-shadow: 0 0 0 3px #f2a24a, 0 0 1.4cqw .3cqw rgba(255, 165, 60, .75); }
+.pz-count { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 7.6%; margin: 0; text-align: center; font: italic 400 clamp(8px, .86cqw, 13px)/1.25 var(--font-serif); color: #4a2e14; }
+.pz-count b { display: block; font: italic 600 clamp(10px, 1.4cqw, 21px)/1.15 var(--font-serif); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) { .pz-left, .pz-right.revealed .rp, .pc.snap svg, .pz-fx .sp { animation: none; } .pz-ghost { transition: none; } }
+
+/* ---------------- phones & tablets ---------------- */
+@media (max-width: 860px) {
+  .pz .stage { display: grid; grid-template-columns: 56px 1fr 56px; gap: 12px 10px; align-content: start; max-width: 640px; margin: 0 auto; padding: 56px 12px 40px; box-sizing: border-box; }
+  .pz .stage > * { grid-column: 1 / -1; }
+  .pz-head { position: static; width: auto; height: auto; clip: auto; overflow: visible; order: 0; text-align: center; margin-bottom: 2px; }
+  .pz-head h1 { margin: 0; font: italic 700 clamp(1.7rem, 7.4vw, 2.3rem)/1.1 var(--font-serif); color: #f4dca6; }
+  .pz-head p { display: inline-block; margin: .5em 0 0; padding: .3em 1.4em; font: italic 600 1rem/1 var(--font-serif); color: #3a2412; background: linear-gradient(#f6e6bf, #e6cd96); border: 2px solid #7a5128; border-radius: 6px; }
+  .pz-table { order: 1; position: relative; left: 0; top: 0; width: 100%; height: auto; aspect-ratio: 5 / 8; border: 4px solid var(--wood); border-radius: 12px; box-shadow: 0 10px 24px rgba(0, 0, 0, .5), inset 0 0 28px rgba(0, 0, 0, .55); }
+  .pz-chips { flex-wrap: wrap; height: auto; min-height: 44px; padding: 6px 8px; gap: 6px; } .pz-lv button { padding: 8px 9px; } .pz-prog { flex: 1 1 100px; order: 5; }
+  .pz-arrow, .pz-start { position: static !important; width: auto; height: auto; min-height: 52px; color: #f8e7bf; border: 2px solid #2c190b; box-shadow: inset 0 1px 0 rgba(255, 220, 160, .4), 0 5px 12px rgba(0, 0, 0, .45); background: linear-gradient(#946032, #6b4020 55%, #5a3418); border-radius: 12px; }
+  .pz-arrow { grid-column: auto !important; } .pz-arrow svg { opacity: 1; width: 26px; height: 26px; } .pz-prev { order: 2; } .pz-start { order: 3; grid-column: auto !important; } .pz-next { order: 4; }
+  .pz-start span { color: #f8e7bf; font-size: 1.2rem; text-shadow: none; } .pz-arrow:hover, .pz-start:hover { background: linear-gradient(#a06a38, #7a4a26 55%, #6a4020); box-shadow: inset 0 1px 0 rgba(255, 220, 160, .4), 0 5px 12px rgba(0, 0, 0, .45); }
+  .pz-dots { order: 5; gap: 14px; padding: 4px 0 2px; } .pz-dots button { width: 14px; height: 14px; border-color: #ecd29d; }
+  .pz-right, .pz-left, .pz-strip { border: 3px solid var(--wood); border-radius: 14px; background: radial-gradient(120% 60% at 15% 0, rgba(255, 252, 230, .75), transparent 60%), linear-gradient(#f6e6bf, #ebd29c); box-shadow: 0 12px 28px rgba(0, 0, 0, .5), inset 0 0 36px rgba(140, 90, 40, .25); }
+  .pz-right { order: 6; padding: 18px 16px; overflow: visible; } .pz-right .rp { font-size: 1.05rem; } .pz-right .orb { width: 76px; height: 76px; } .pz-right .pic { width: 92px; height: 92px; } .pz-right h3 { font-size: 2rem; } .pz-right .orb b { font-size: 2.2rem; }
+  .pz-left { order: 7; padding: 18px 16px; overflow: visible; font-size: 1.04rem; } .pz-left h2 { font-size: 1.9rem; }
+  .pz-strip { order: 8; position: relative; padding: 14px 10px 16px; }
+  .pz-meds { position: static; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 10px; padding: 0 4px; }
+  .pz-med { width: 100%; flex: none; } .pz-med .q { font-size: 1.6rem; }
+  .pz-count { position: static; transform: none; width: auto; margin: 0 0 10px; font-size: .95rem; display: flex; gap: .4em; justify-content: center; align-items: baseline; } .pz-count b { display: inline; font-size: 1.25rem; }
+}
+
+/* compact reveal card so the buttons always fit under the traits */
+.pz-right .pic { width: 5.4cqw; height: 5.4cqw; min-width: 52px; min-height: 52px; }
+.pz-right .rp { gap: .3em; } .pz-right h3 { font-size: clamp(18px, 2.3cqw, 36px); } .pz-right .tr { gap: .12em; margin: .15em 0; } .pz-right .tr li { font-size: 1.02em; }
+.pz-right .rb { display: flex; gap: .5em; } .pz-right .rb .pz-go { flex: 1.7; padding: .7em .4em; } .pz-right .rb .pz-alt { flex: 1; padding: .5em .3em; }
+@media (max-width: 860px) {
+  .pz-strip { left: 0; top: 0; display: flex; flex-direction: column-reverse; }
+  .pz-right .pic { width: 92px; height: 92px; } .pz-right .rb { flex-wrap: wrap; }
+}
